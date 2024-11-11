@@ -6,5 +6,12 @@ export default defineSchema({
         userName:v.string(),
         email:v.string(),
         imageUrl:v.string()
+    }),
+    pfdFiles:defineTable({
+        fileId:v.string(),
+        storageId:v.string(),
+        fileName:v.string(),
+        fileUrl:v.string(),
+        createBy:v.string()
     })
 })
