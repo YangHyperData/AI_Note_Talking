@@ -8,21 +8,22 @@ import { v } from "convex/values";
 
 export const ingest = action({
     args: {
-        splitText: v.any(),
+        splitText: v.array(v.string()), 
         fileId: v.string()
     },
     handler: async (ctx, args) => {
+        // Process embedding with strings only
         await ConvexVectorStore.fromTexts(
-            args.splitText, // Array
-            args.fileId,// String
+            args.splitText, 
+            args.fileId, 
             new GoogleGenerativeAIEmbeddings({
                 apiKey: 'AIzaSyDPSqwsrdtBmwgl8pVIevjqCaO4OIE2YIs',
-                model: "text-embedding-004", // 768 dimensions
+                model: "text-embedding-004",
                 taskType: TaskType.RETRIEVAL_DOCUMENT,
                 title: "Document title",
             }),
             { ctx }
         );
-        return "Completed..."
+        return "Completed...";
     },
 });
