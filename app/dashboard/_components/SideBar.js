@@ -8,7 +8,7 @@ import UploadPdfDialog from './UploadPdfDialog'
 function SideBar() {
     return (
         <div className='shadow-2xl h-screen p-7'>
-            <Image src={'/logo.svg'} width={50} height={50} alt='logo' />
+            <Image src={'/logo.svg'} width={200} height={200} alt='logo' />
             <div className='mt-10'>
                 <UploadPdfDialog>
                     <Button className="w-full">+ Upload PDF</Button>

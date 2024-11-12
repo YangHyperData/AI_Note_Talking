@@ -68,7 +68,7 @@ function UploadPdfDialog({ children }) {
             splitText: splitText,
             fileId: fileId,
         });
-        console.log(embeddResult)
+        
         setLoading(false);
         setOpen(false);
 
