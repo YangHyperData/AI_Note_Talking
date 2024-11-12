@@ -1,10 +1,14 @@
 import { NextResponse } from "next/server";
 import { WebPDFLoader } from "@langchain/community/document_loaders/web/pdf";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
-const pdfUrl = "https://determined-deer-962.convex.cloud/api/storage/13b65345-4966-4875-80b7-809d3ab52182";
+// const pdfUrl = "https://determined-deer-962.convex.cloud/api/storage/ea0d6f01-c6b7-42c9-aa81-ce562c2bff3a";
 
 export async function GET(req) {
     // 1. Load the PDF file
+    const reqUrl = req.url;
+    const { searchParams } = new URL(reqUrl);
+    const pdfUrl = searchParams.get('pdfUrl');
+    console.log(pdfUrl);
     const response = await fetch(pdfUrl);
     const data = await response.blob();
     const loader = new WebPDFLoader(data);
