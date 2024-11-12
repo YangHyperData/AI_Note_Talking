@@ -28,7 +28,7 @@ function UploadPdfDialog({ children }) {
     const embeddDocument = useAction(api.myAction.ingest)
     const { user } = useUser();
     const [loading, setLoading] = useState(false);
-    const [open,setOpen] = useState(false);
+    const [open, setOpen] = useState(false);
     const [fileName, setFileName] = useState();
     const OnFileSelect = (event) => {
         setFile(event.target.files[0]);
@@ -61,11 +61,14 @@ function UploadPdfDialog({ children }) {
         // API Call to Fetch PDF Proccess Data
         const Apiresp = await axios.get('/api/pdf-loader?pdfUrl=' + fileUrl);
         console.log(Apiresp.data.result);
+        const splitText = Apiresp.data.result.map(item =>
+            typeof item === "object" && item.pageContent ? item.pageContent : item.toString()
+        );
         await embeddDocument({
-            splitText: Apiresp.data.result,
+            splitText: splitText,
             fileId: fileId,
         });
-        // console.log(embeddResult)
+        console.log(embeddResult)
         setLoading(false);
         setOpen(false);
 
@@ -100,7 +103,7 @@ function UploadPdfDialog({ children }) {
                             Close
                         </Button>
                     </DialogClose>
-                    <Button onClick={OnUpload} disable={loading}>
+                    <Button onClick={OnUpload} disabled={loading}>
                         {loading ?
                             <Loader2Icon className='animate-spin' /> : 'Upload'
                         }
